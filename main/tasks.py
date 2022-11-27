@@ -1,0 +1,14 @@
+from .celery import app
+from django.core.mail import send_mail
+
+
+@app.task
+def send_email_task(user, code):
+    full_link = f'http://localhost:8000/api/v1/accounts/activate/{code}/'
+    send_mail(
+        'Здравствуйте, активируйте ваш аккаунт.',
+        f'Чтобы активировать аккаунт, аам необходимо перейти по ссылке: {full_link}',
+        'kutmanvip01@gmail.com',
+        [user],
+        fail_silently=False,
+    )
