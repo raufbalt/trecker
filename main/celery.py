@@ -11,10 +11,4 @@ app.config_from_object('django.conf:settings',
 app.autodiscover_tasks()
 
 
-# celery spam tasks
-app.conf.beat_schedule = {
-    'send-spam-every-5-minutes':{
-        'task': 'main.tasks.send_spam_email',
-        'schedule': crontab(minute='*/5')
-    }
-}
+
