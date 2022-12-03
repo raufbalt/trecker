@@ -16,7 +16,7 @@ class Service(models.Model):
     # balance = models.IntegerField(default=income-expense)
 
     #Время создания и обновления
-    date_created = models.DateTimeField()
+    date_created = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True)
 
 

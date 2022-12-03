@@ -11,9 +11,12 @@ class ServiceSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
     def to_representation(self, instance):
-        rep = super().to_representation(instance)
-        rep['balance'] = instance.income - instance.expense
-        return rep
+        try:
+            rep = super().to_representation(instance)
+            rep['balance'] = instance.income - instance.expense
+            return rep
+        except AttributeError:
+            return rep
 
 
 class CategorySerializer(serializers.ModelSerializer):
