@@ -2,9 +2,9 @@ from django.shortcuts import get_object_or_404
 from rest_framework import permissions
 from rest_framework.viewsets import ModelViewSet
 
-from service.models import Service, Category, User
+from service.models import Service, Category, User, Expense
 from service.permissions import IsOwner
-from service.serializers import ServiceSerializer, CategorySerializer
+from service.serializers import ServiceSerializer, CategorySerializer, ExpenseSerializer
 
 
 class ServiceViewSet(ModelViewSet):
@@ -29,6 +29,13 @@ class ServiceViewSet(ModelViewSet):
 
     def get_permissions(self):
         return [IsOwner()]
+
+
+class ExpenseViewSet(ModelViewSet):
+    serializer_class = ExpenseSerializer
+    queryset = Expense.objects.all()
+
+
 
 
 
