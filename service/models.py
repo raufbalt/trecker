@@ -1,8 +1,11 @@
+from django.contrib.auth import get_user_model
 from django.db import models
 from django.utils.text import slugify
 
+User = get_user_model()
 
 class Service(models.Model):
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
     #Расход
     expense = models.IntegerField(default=0)
     category = models.ForeignKey("category", on_delete=models.SET_NULL, null=True)
@@ -27,6 +30,8 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
+
+
 
 
 

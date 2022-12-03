@@ -4,6 +4,7 @@ from service.models import Service, Category
 
 
 class ServiceSerializer(serializers.ModelSerializer):
+    owner = serializers.ReadOnlyField(source='auth.user')
 
     class Meta:
         model = Service
