@@ -1,20 +1,29 @@
+from django.contrib.auth import get_user_model
 from django.db import models
 from django.utils.text import slugify
 
+User = get_user_model()
 
 class Service(models.Model):
-    #Расход
-    expense = models.IntegerField(default=0)
-    category = models.ForeignKey("category", on_delete=models.SET_NULL, null=True)
-    expense_notice = models.CharField(max_length=50, null=True, blank=True)
-    #Доход
-    income = models.IntegerField(default=0)
-    #Баланс
-    # balance = models.IntegerField(default=income-expense)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    date_created = models.DateTimeField(auto_now_add=True)
 
-    #Время создания и обновления
-    date_created = models.DateTimeField()
-    date_modified = models.DateTimeField(auto_now=True)
+#Доход
+class Income(models.Model):
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    service = models.ForeignKey('Service', on_delete=models.CASCADE, related_name='polucheno')
+    value = models.IntegerField(default=0, null=True)
+    created_date = models.DateTimeField(auto_now_add=True)
+
+#Расход
+class Expense(models.Model):
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    service = models.ForeignKey('Service', on_delete=models.CASCADE, related_name='potracheno')
+    value = models.IntegerField(default=0, null=True)
+    expense_notice = models.CharField(max_length=50, null=True, blank=True)
+    created_date = models.DateTimeField(auto_now_add=True)
+    category = models.ForeignKey("category", on_delete=models.SET_NULL, null=True)
+
 
 
 class Category(models.Model):
@@ -27,6 +36,8 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
+
+
 
 
 
