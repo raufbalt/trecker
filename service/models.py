@@ -6,8 +6,6 @@ User = get_user_model()
 
 class Service(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
-    #Расход
-    category = models.ForeignKey("category", on_delete=models.SET_NULL, null=True)
     #Доход
     income = models.IntegerField(default=0)
     #Баланс
@@ -15,7 +13,6 @@ class Service(models.Model):
 
     #Время создания и обновления
     date_created = models.DateTimeField(auto_now_add=True)
-    date_modified = models.DateTimeField(auto_now=True)
 
 
 class Expense(models.Model):
@@ -23,6 +20,7 @@ class Expense(models.Model):
     value = models.IntegerField()
     expense_notice = models.CharField(max_length=50, null=True, blank=True)
     created_date = models.DateTimeField(auto_now_add=True)
+    category = models.ForeignKey("category", on_delete=models.SET_NULL, null=True)
 
 
 

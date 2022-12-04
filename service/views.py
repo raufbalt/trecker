@@ -14,8 +14,6 @@ class ServiceViewSet(ModelViewSet):
     def perform_create(self, serializer):
         data = self.request.data
 
-        category = self.request.data.get('category', None)
-        category1 = get_object_or_404(Category, slug=category)
         Service.objects.create(
             owner = self.request.user,
             expense=self.request.data.get("expense", None),
@@ -23,7 +21,6 @@ class ServiceViewSet(ModelViewSet):
             income=self.request.data.get("income", None),
             date_created=self.request.data.get("date_created", None),
             date_modified=self.request.data.get("date_modified", None),
-            category=category1,
 
         )
 

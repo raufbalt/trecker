@@ -24,6 +24,7 @@ class ServiceSerializer(serializers.ModelSerializer):
         try:
             rep = super().to_representation(instance)
             print(summa, '!!!!!!!!', integ)
+            rep['expense'] = sum(integ)
             rep['balance'] = instance.income - sum(integ)
             return rep
         except AttributeError:
