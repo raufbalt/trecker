@@ -6,18 +6,20 @@ User = get_user_model()
 
 class Service(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
-    #Доход
-    income = models.IntegerField(default=0)
-    #Баланс
-    # balance = models.IntegerField(default=income-expense)
-
-    #Время создания и обновления
     date_created = models.DateTimeField(auto_now_add=True)
 
+#Доход
+class Income(models.Model):
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    service = models.ForeignKey('Service', on_delete=models.CASCADE, related_name='polucheno')
+    value = models.IntegerField(default=0, null=True)
+    created_date = models.DateTimeField(auto_now_add=True)
 
+#Расход
 class Expense(models.Model):
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
     service = models.ForeignKey('Service', on_delete=models.CASCADE, related_name='potracheno')
-    value = models.IntegerField()
+    value = models.IntegerField(default=0, null=True)
     expense_notice = models.CharField(max_length=50, null=True, blank=True)
     created_date = models.DateTimeField(auto_now_add=True)
     category = models.ForeignKey("category", on_delete=models.SET_NULL, null=True)
