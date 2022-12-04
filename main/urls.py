@@ -26,7 +26,7 @@ from rest_framework.routers import SimpleRouter
 
 schema_view = get_schema_view(
    openapi.Info(
-      title="Video hosting test project",
+      title="Akatsuki",
       default_version='v1',
       description="Test REST API backend at django",
       terms_of_service="https://www.google.com/policies/terms/",
