@@ -1,3 +1,4 @@
+from account.models import NotificationContacts
 from .celery import app
 from django.core.mail import send_mail
 
@@ -12,3 +13,18 @@ def send_email_task(user, code):
         [user],
         fail_silently=False,
     )
+<<<<<<< HEAD
+=======
+
+
+@app.task
+def send_notification_email():
+    for user in NotificationContacts.objects.all():
+        send_mail(
+            'Akatscoin',
+            'Не забудьте отметить ваши расходы и доходы',
+            'kutmanvip01@gmail.com',
+            [user.email],
+            fail_silently=False,
+        )
+>>>>>>> 5f3b2233440850cc60fdfc1bdaefbf2d146654a4

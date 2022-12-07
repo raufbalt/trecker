@@ -56,3 +56,11 @@ class Account(AbstractUser):
         import uuid
         code = str(uuid.uuid4())
         self.activation_code = code
+
+
+class NotificationContacts(models.Model):
+    email = models.EmailField('email address', unique=True)
+
+    class Meta:
+        verbose_name = 'NotificationsContacts'
+        verbose_name_plural = 'NotificationsContacts'

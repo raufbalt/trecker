@@ -2,7 +2,7 @@ from django.shortcuts import get_object_or_404
 from rest_framework import permissions
 from rest_framework.viewsets import ModelViewSet
 
-from service.models import Service, Category, User, Expense, Income
+from service.models import Service, Category, Expense, Income
 from service.permissions import IsOwner
 from service.serializers import ServiceSerializer, CategorySerializer, ExpenseSerializer, IncomeSerializer
 

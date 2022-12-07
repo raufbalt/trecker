@@ -89,3 +89,11 @@ class RestorePasswordView(APIView):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response('Password changed successfully!')
+
+
+class FollowNotificationsApi(APIView):
+    def post(self, request):
+        serializer = serializers.NotificationViewSerializer(data=request.data, context={'request': request})
+        serializer.is_valid(raise_exception=True)
+        serializer.save(email=request.user.email)
+        return Response('Followed to notifications!', 201)

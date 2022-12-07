@@ -11,4 +11,9 @@ urlpatterns = [
     path('refresh/', TokenRefreshView.as_view()),
     path('forgot/', views.ForgotPasswordView.as_view()),
     path('restore/', views.RestorePasswordView.as_view()),
+<<<<<<< HEAD
 ]
+=======
+    path('follow-notifications/', views.FollowNotificationsApi.as_view()),
+]
+>>>>>>> 5f3b2233440850cc60fdfc1bdaefbf2d146654a4

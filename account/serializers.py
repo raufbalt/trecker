@@ -4,6 +4,7 @@ from django.contrib.auth import get_user_model
 from django.utils.translation import gettext_lazy as _
 from rest_framework_simplejwt.exceptions import TokenError
 from rest_framework_simplejwt.tokens import RefreshToken
+from account.models import NotificationContacts
 
 User = get_user_model()
 
@@ -84,3 +85,17 @@ class RestorePasswordSerializer(serializers.Serializer):
         user.activation_code = ''
         user.save()
         return user
+
+
+class NotificationViewSerializer(serializers.ModelSerializer):
+    email = serializers.ReadOnlyField()
+
+    class Meta:
+        model = NotificationContacts
+        fields = 'all'
+
+    def validate(self, attrs):
+        email = self.context['request'].user.email
+        if NotificationContacts.objects.filter(email=email).exists():
+            raise serializers.ValidationError('You are already followed to notifications!')
+        return attrs
