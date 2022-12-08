@@ -13,8 +13,6 @@ def send_email_task(user, code):
         [user],
         fail_silently=False,
     )
-<<<<<<< HEAD
-=======
 
 
 @app.task
@@ -27,4 +25,4 @@ def send_notification_email():
             [user.email],
             fail_silently=False,
         )
->>>>>>> 5f3b2233440850cc60fdfc1bdaefbf2d146654a4
+

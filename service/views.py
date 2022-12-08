@@ -1,3 +1,4 @@
+
 from django.shortcuts import get_object_or_404
 from rest_framework import permissions
 from rest_framework.viewsets import ModelViewSet
@@ -48,7 +49,8 @@ class ExpenseViewSet(ModelViewSet):
             service = service1,
             created_date=self.request.data.get("created_date", None),
             value = self.request.data.get("value", None),
-            category = category1
+            category = category1,
+	    expense_notice = self.request.data.get("expense_notice", None),
         )
 
 

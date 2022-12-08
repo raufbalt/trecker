@@ -92,7 +92,7 @@ class NotificationViewSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = NotificationContacts
-        fields = 'all'
+        fields = '__all__'
 
     def validate(self, attrs):
         email = self.context['request'].user.email
