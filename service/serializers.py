@@ -4,7 +4,7 @@ from service.models import Service, Category, Expense, Income
 
 
 class ServiceSerializer(serializers.ModelSerializer):
-    owner = serializers.ReadOnlyField(source='auth.user')
+    owner = serializers.ReadOnlyField(source='owner.email')
 
     class Meta:
         model = Service
@@ -62,14 +62,14 @@ class ServiceSerializer(serializers.ModelSerializer):
 
 
 class IncomeSerializer(serializers.ModelSerializer):
-    owner = serializers.ReadOnlyField(source='auth.user')
+    owner = serializers.ReadOnlyField(source='owner.email')
     class Meta:
         model = Income
         fields = '__all__'
 
 
 class ExpenseSerializer(serializers.ModelSerializer):
-    owner = serializers.ReadOnlyField(source='auth.user')
+    owner = serializers.ReadOnlyField(source='owner.email')
     class Meta:
         model = Expense
         fields = '__all__'

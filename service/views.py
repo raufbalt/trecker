@@ -8,6 +8,19 @@ from service.permissions import IsOwner
 from service.serializers import ServiceSerializer, CategorySerializer, ExpenseSerializer, IncomeSerializer
 
 
+import datetime
+def time():
+    time = datetime.datetime.now()
+    day = time.strftime("%d")
+    month = time.strftime("%m")
+    year = time.strftime("%Y")
+
+    date = day+"/"+month+"/"+year
+    return date
+
+a = time()
+print(len(a))
+
 class ServiceViewSet(ModelViewSet):
     queryset = Service.objects.all()
     serializer_class = ServiceSerializer
@@ -18,10 +31,13 @@ class ServiceViewSet(ModelViewSet):
         Service.objects.create(
             owner = self.request.user,
             date_created=self.request.data.get("date_created", None),
+	    time = time()
   )
 
     def get_permissions(self):
-        return [IsOwner()]
+        if self.action in ('update', 'partial_update', 'destroy', 'list'):
+            return [permissions.IsAuthenticated(), IsOwner()]
+        return [permissions.IsAuthenticated()]
 
 
 class ExpenseViewSet(ModelViewSet):
@@ -51,6 +67,7 @@ class ExpenseViewSet(ModelViewSet):
             value = self.request.data.get("value", None),
             category = category1,
 	    expense_notice = self.request.data.get("expense_notice", None),
+	    time = time()
         )
 
 
@@ -75,6 +92,7 @@ class IncomeViewSet(ModelViewSet):
             service=service1,
             created_date=self.request.data.get("created_date", None),
             value=self.request.data.get("value", None),
+	    time = time()
         )
 
 class CategoryViewSet(ModelViewSet):
